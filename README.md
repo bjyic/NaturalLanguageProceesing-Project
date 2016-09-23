@@ -8,9 +8,6 @@ Your model will be assessed based on how root mean squared error of the number
 of stars you predict.  There is a reference solution (which should not be too
 hard to beat).  The reference solution has a score of 1.
 
-The data is available at:
-
-[http://thedataincubator.s3.amazonaws.com/coursedata/mldata/yelp_train_academic_dataset_review.json.gz]
 
 
 ## Helpful notes:
