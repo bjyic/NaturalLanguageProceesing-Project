@@ -48,8 +48,7 @@ as the normalization scheme.  Try some of these alternative vectorizations:
    There are options for using `idf` and taking the logarithm of `tf`.  Do
    these significantly affect the result?
 
-Finally, if you can't decide which one is better, don't forget that you can
-combine models with a linear regression.
+
 
 
 ## bigram_model
@@ -85,12 +84,6 @@ each caption increases accuracy to 90%. This indicates that the name parsing is
 a much more promising target for further work, and the caption extraction is a
 relatively smaller factor in the overall performance.
 
-If you don't know the right answers at different stages of the pipeline, you
-can still evaluate how important different parts of the model are to its
-performance by changing or removing certain steps while keeping everything
-else constant. You might try this kind of analysis to determine how important
-adding stopwords and stemming to your NLP model actually is, and how that
-importance changes with parameters like the number of features.
 
 ## food_bigrams
 Look over all reviews of restaurants (you may need to look at the dataset from
@@ -109,8 +102,3 @@ is high.  Return the top 100 (mostly food) bigrams with this statistic with
 the 'right' prior factor (see below).
 
 
-*Implementation notes:*
-- The reference solution is not an aggressive filterer. Although there are
-  definitely artifacts in the bigrams you'll find, many of the seeming nonsense
-  words are actually somewhat meaningful and so using smoothing parameters in
-  the thousands or a high min_df might give you different results.
