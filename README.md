@@ -10,18 +10,7 @@ hard to beat).  The reference solution has a score of 1.
 
 
 
-## Helpful notes:
-- You may run into trouble with the size of your models and Heroku's memory
-  limit.  This is a major concern in real-world applications.  Your production
-  environment will likely not be that different from Heroku and being able to
-  deploy there is important and companies don't want to hire data scientists
-  who cannot cope with this.  Think about what information the different stages
-  of your pipeline need and how you can reduce the memory footprint.
-- For example, submitting entire GridSearchCV objects will not work reliably
-  depending on the size of your models. If you use GridSearchCV, consult the
-  documentation to find the attributes that allow you to extract the best
-  estimator and/or parameters. (Remember to retrain on the entire dataset
-  before submitting).
+
 
 # Submission                                                                                                                                                                                                 
 Replace the return values in `__init__.py` with predictions from your models.
@@ -39,37 +28,8 @@ grading.
 Build a linear model based on the count of the words in each document
 (bag-of-words model).
 
-**Hints**:
-1. Don't forget to use tokenization!  This is important for good performance
-   but it is also the most expensive step.  Try vectorizing as a first initial
-   step:
-   ```Python
-       X = feature_extraction.text \
-                             .CountVectorizer() \
-                             .fit_transform(text)
-       y = scores
-   ``` 
-   and then running grid-serach and cross-validation only on of this
-   pre-processed data.  `CountVectorizer` has to memorize the mapping between
-   words and the index to which it is assigned.  This is linear in the size of
-   the vocabulary.  The `HashingVectorizer` does not have to remember this
-   mapping and will lead to much smaller models.
 
-2. Try choosing different values for `min_df` (minimum document frequency
-   cutoff) and `max_df` in `CountVectorizer`.  Setting `min_df` to zero admits
-   rare words which might only appear once in the entire corpus.  This is both
-   prone to overfitting and makes your data unmanageably large.  Don't forget
-   to use cross-validation or to select the right value.  Notice that
-   `HashingVectorizer` doesn't support `min_df`  and `max_df`.  However, it's
-   not hard to roll your own transformer that solves for these.
-
-3. Try using `LinearRegression` or `RidgeCV`.  If the memory footprint is too
-   big, try switching to Stochastic Gradient Descent
-   (`sklearn.linear_model.SGDRegressor`) You might find that even ordinary
-   linear regression fails due to the data size.  Don't forget to use
-   `GridSearchCV` to determine the regularization parameter!  How do the
-   regularization parameter `alpha` and the values of `min_df` and `max_df`
-   from `CountVectorizer` change the answer?
+ 
 
 ## normalized_model
 Normalization is key for good linear regression. Previously, we used the count
@@ -148,20 +108,6 @@ $w_1 w_2$ where the statistic
 is high.  Return the top 100 (mostly food) bigrams with this statistic with
 the 'right' prior factor (see below).
 
-*Questions:* (to think about: they are not a part of the answer).  This
-statistic is a ratio and problematic when the denominator is small.  We can fix
-this by applying Bayesian smoothing to $p(w)$ (i.e. mixing the empirical
-distribution with the uniform distribution over the vocabulary).
-
-1. How does changing this smoothing parameter effect the word pairs you get
-   qualitatively?
-
-2. We can interpret the smoothing parameter as adding a constant number of
-   occurences of each word to our distribution.  Does this help you determine
-   set a reasonable value for this 'prior factor'?
-
-3. For fun: also check out [Amazon's Statistically Improbable
-   Phrases](http://en.wikipedia.org/wiki/Statistically_Improbable_Phrases).
 
 *Implementation notes:*
 - The reference solution is not an aggressive filterer. Although there are
